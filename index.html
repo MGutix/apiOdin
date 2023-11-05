@@ -5,17 +5,36 @@
   <title>Giphy Api Test</title>
 </head>
 <body>
+    <input type="text" name="search" id="search">
+    <button id="button">Search</button>
+
   <img src="#">
   <script>
-
+    const btn = document.getElementById('button')
+    const input = document.getElementById('search')
     const img = document.querySelector('img');
-    fetch('https://api.giphy.com/v1/gifs/translate?api_key=4mNgWCZsxSbg9yYM706d0QAWgwC3mZro&s=cats', {mode:"cors"})
+
+    
+    function loadImg(searchTerm) {
+        fetch(`https://api.giphy.com/v1/gifs/translate?api_key=4mNgWCZsxSbg9yYM706d0QAWgwC3mZro&s=${searchTerm}`, {mode:"cors"})
         .then((response) => {
+            console.log(`${searchTerm}`)
             return response.json()
         })
         .then((response) => {
             img.src = response.data.images.original.url
         })
+        .catch((error) => {
+            console.error('Error');
+        });
+    }
+
+    
+
+    btn.addEventListener('click', () => {
+        let searchTerm = input.value
+        loadImg(searchTerm)
+    })
 
   </script>
   
