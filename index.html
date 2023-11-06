@@ -15,18 +15,11 @@
     const img = document.querySelector('img');
 
     
-    function loadImg(searchTerm) {
-        fetch(`https://api.giphy.com/v1/gifs/translate?api_key=4mNgWCZsxSbg9yYM706d0QAWgwC3mZro&s=${searchTerm}`, {mode:"cors"})
-        .then((response) => {
-            console.log(`${searchTerm}`)
-            return response.json()
-        })
-        .then((response) => {
-            img.src = response.data.images.original.url
-        })
-        .catch((error) => {
-            console.error('Error');
-        });
+    async function loadImg(searchTerm) {
+        const response = await fetch(`https://api.giphy.com/v1/gifs/translate?api_key=4mNgWCZsxSbg9yYM706d0QAWgwC3mZro&s=${searchTerm}`, {mode:"cors"})
+        const gif = await response.json()
+        img.src = gif.data.images.original.url
+        
     }
 
     
